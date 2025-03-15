@@ -81,13 +81,6 @@ class BillShare(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             # fields=['member', 'apartment'],
-    #             # name='unique_member_apartment_bill_share'
-    #         )
-    #     ]
 
     def __str__(self):
         return f"{self.member.member_fullname} - {self.share_percentage}% of {self.apartment}"
