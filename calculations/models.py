@@ -5,7 +5,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Country(models.Model):
-    code = models.IntegerField(null=True, blank=True) #(primary_key=True)
+    code = models.CharField(max_length=100, unique=True, null=True, blank=True) #(primary_key=True)
     name = models.CharField(max_length=100)
     continent_name = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +23,7 @@ class User(models.Model):
         Country,
         on_delete=models.PROTECT,
         to_field='code',
-        db_column='country_code'
+        # db_column='country_code'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
