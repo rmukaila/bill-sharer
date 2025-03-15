@@ -23,7 +23,7 @@ class User(models.Model):
         Country,
         on_delete=models.PROTECT,
         to_field='code',
-        # db_column='country_code'
+        db_column='country_code'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -32,7 +32,7 @@ class User(models.Model):
         return self.full_name
 
 class Apartment(models.Model):
-    apartment_no = models.IntegerField(unique=True)
+    apartment_no = models.IntegerField(auto_created=True, primary_key=True)
     name = models.CharField(max_length=255, null=True, blank=True)
     number_of_members = models.IntegerField(
         validators=[MinValueValidator(1)],
@@ -44,6 +44,7 @@ class Apartment(models.Model):
         return f"Apartment {self.apartment_no} - {self.name or 'Unnamed'}"
 
 class ApartmentMember(models.Model):
+    id = models.IntegerField(auto_created=True, primary_key=True)
     member_fullname = models.CharField(max_length=255)
     apartment = models.ForeignKey(
         Apartment,
@@ -80,13 +81,13 @@ class BillShare(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['member', 'apartment'],
-                name='unique_member_apartment_bill_share'
-            )
-        ]
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(
+    #             # fields=['member', 'apartment'],
+    #             # name='unique_member_apartment_bill_share'
+    #         )
+    #     ]
 
     def __str__(self):
         return f"{self.member.member_fullname} - {self.share_percentage}% of {self.apartment}"
