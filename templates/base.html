@@ -1,6 +1,6 @@
 {% load static %}
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="soft">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}" />
   </head>
   <body>
-    <p class="w-fit rounded-md bg-red-300 p-3">My base Html</p>
+    <p class="w-fit rounded-md bg-red-400 p-3">My base Html</p>
+
+    {% include "sidebar.html"%}
+
+    <script src="{% static 'js/flyonui.js'%}"></script>
+    <!-- <script src="{% static '__reload__/reload.js' %}"></script> -->
   </body>
 </html>

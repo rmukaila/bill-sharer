@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'calculations'
+    'calculations',
+    "django_browser_reload"
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'shared_bills_calculator.urls'
+
+DEBUG = True
+
 
 TEMPLATES = [
     {
