@@ -1,7 +1,9 @@
 from rest_framework import serializers
+from django.core.validators import MinValueValidator, MaxValueValidator
 from .models import BillShare
 
-class BillShareSerializer():
+
+class BillShareSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     member = serializers.IntegerField()
     apartment = serializers.IntegerField()

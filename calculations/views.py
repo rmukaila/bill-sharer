@@ -1,6 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.renderers import JSONRenderer
+from rest_framework.permissions import AllowAny
+from rest_framework.renderers import BrowsableAPIRenderer
+from rest_framework.response import Response
+from rest_framework import status
 from django.template import loader
+from .models import BillShare
+from .serializers import BillShareSerializer
+
+
 
 # Create your views here.
 def calculations(request):
@@ -19,3 +29,23 @@ def add_member(request):
 # endpoint for adding bill shares to an apartment
 def add_bill_share(request):
     pass    
+
+#endpoint for fetching bill shares for an apartment
+class AppartmentBillSharesList(APIView):
+    """
+    Return a list of bill shares for an appartment
+    """
+
+    permission_classes = [AllowAny]  # 👈 allow all requests
+    renderer_classes = [JSONRenderer, BrowsableAPIRenderer] 
+    def post(self, request, format=None):
+        #check validations
+        serializer = BillShareSerializer(data=request.data)
+        if serializer.is_valid():
+            shares = BillShare.objects.all()
+            return Response(BillShareSerializer(shares, many=True).data)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # def post(self, request, format=None):
+    #     pass
