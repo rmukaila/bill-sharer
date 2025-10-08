@@ -38,7 +38,7 @@ class AppartmentBillSharesList(APIView):
 
     permission_classes = [AllowAny]  # 👈 allow all requests
     renderer_classes = [JSONRenderer, BrowsableAPIRenderer] 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         #check validations
         serializer = BillShareSerializer(data=request.data)
         if serializer.is_valid():

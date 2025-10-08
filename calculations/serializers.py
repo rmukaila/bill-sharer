@@ -28,3 +28,4 @@ class BillShareSerializer(serializers.Serializer):
         instance.share_percentage = validated_data.get('share_percentage', instance.share_percentage)
         instance.save()
         return instance
+    
