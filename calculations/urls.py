@@ -8,4 +8,5 @@ urlpatterns = [
     path ('add_bill_share/', views.add_bill_share, name='add_bill_share'),
     path ('apartment_bill_shares/', views.AppartmentBillSharesList.as_view(), name='apartment_bill_shares'),
 
+
 ]
