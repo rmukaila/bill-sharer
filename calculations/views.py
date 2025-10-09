@@ -36,8 +36,6 @@ class AppartmentBillSharesList(APIView):
     Return a list of bill shares for an appartment
     """
 
-    permission_classes = [AllowAny]  # 👈 allow all requests
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer] 
     def get(self, request, format=None):
         #check validations
         serializer = BillShareSerializer(data=request.data)
