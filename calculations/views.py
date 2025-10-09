@@ -33,17 +33,24 @@ def add_bill_share(request):
 #endpoint for fetching bill shares for an apartment
 class AppartmentBillSharesList(APIView):
     """
-    Return a list of bill shares for an appartment
+    GET  → Return a list of bill shares for an apartment (requires ?apartment=)
+    POST → Create a new bill share (requires all serializer fields)
     """
 
     def get(self, request, format=None):
-        #check validations
+
+        apartment_id = request.query_params.get('apartment', None)
+        if apartment_id is not None:
+            shares = BillShare.objects.filter(apartment=apartment_id)
+            serializer = BillShareSerializer(shares, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error": "Apartment ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request, format=None):
         serializer = BillShareSerializer(data=request.data)
         if serializer.is_valid():
-            shares = BillShare.objects.all()
-            return Response(BillShareSerializer(shares, many=True).data)
-
+            serializer.save()
+            return Response(serializer.data,status= status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    # def post(self, request, format=None):
-    #     pass

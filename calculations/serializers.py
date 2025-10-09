@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from .models import BillShare
 
 
+# class BillShareSerializer(serializers.ModelSerializer):
 class BillShareSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     member = serializers.IntegerField()
@@ -11,7 +12,10 @@ class BillShareSerializer(serializers.Serializer):
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
 
+    # model = BillShare
+    # fields = ['id', 'member', 'apartment', 'share_percentage', 'created_at', 'updated_at']
 
+    # fields = '__all__'
     def create(self, validated_data):
         """
         Create and return a new BillShare instance given the validate data
